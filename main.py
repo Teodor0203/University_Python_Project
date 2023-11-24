@@ -75,7 +75,7 @@ def mainGame():
 
       # Nu mai sunt vieti, runda s-a terminat
       if vieti == 0:
-        os.system('clear')
+        os.system('cls')
         sfarsit_joc = True
         print(stages[0])
         print("Ai pierdut.")
