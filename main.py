@@ -21,7 +21,7 @@ def mainGameIntroduction():
   print("Bine ati venit la jocul de spanzuratoare!")
   print("Cuvintele sunt nume de animale! \n")
   print("Daca te blochezi la un cuvant, scrie indiciu in terminal!")
-  print("Ai 2 indicii pe runda! \n")
+  print("Ai doua indicii pe runda! \n")
   input("Apasa enter pentru a incepe jocul!").lower()
   os.system('cls')
   mainGame()
@@ -79,9 +79,14 @@ def mainGame():
       print(f"{''.join(linii)} \n")
 
       numar_indicii = numar_indicii - 1
-      print(f"{numar_indicii} indiciu ramas! \n")
+      if (numar_indicii == 0):
+        print("Ai epuizat numarul de indicii! \n")
+      else:
+        
+        print(f"Mai ai {numar_indicii} indiciu ramas! \n")
       
       indiciu()
+    
     elif ((litera_introdusa == "indiciu") and (numar_indicii <= 0)):
       print(f"{''.join(linii)} \n")
       print(f"Ai epuizat numarul de indicii! \n")
