@@ -56,7 +56,7 @@ def mainGame():
 
     from ASCII__art import stages
     print(stages[vieti])  # De fixat, sare peste anumite stagii finale
-
+    
     # Inlocuieste fiecare linie cu litera corespunzatoare sau de fapt..
     for pozitie in range(numar_litere):
       litera = cuvant[pozitie]
