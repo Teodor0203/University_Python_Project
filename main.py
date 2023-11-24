@@ -33,7 +33,7 @@ vieti = 6
 
 '''Creez lista si vom afisa atatea linii cate litere are cuvantul'''
 
-linii = [] #creez o lista goala
+linii = [] #creez o lista goala (modificare)
 
 for _ in range(numar_litere): #verifica numarul de litere din cuvantul random si adauga atatea linii cate litere are cuvantul
     linii += "_"
