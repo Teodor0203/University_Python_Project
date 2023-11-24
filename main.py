@@ -15,23 +15,23 @@ def indiciu():
 
 # Meniul Principal
 def mainGameIntroduction():
-  from ASCII_art import logo
+  from ASCII__art import logo
   print(logo)
   print("\n")
   print("Bine ati venit la jocul de spanzuratoare!")
   print("Cuvintele sunt nume de animale! \n")
   input("Apasa enter pentru a incepe!").lower()
-  os.system('clear')
+  os.system('cls')
   mainGame()
 
 
 # Jocul Principal
 def mainGame():
   # Pregatirea jocului
-  from Cuvinte import lista_animale
+  from Cuvinte import animale
 
   global cuvant
-  cuvant = random.choice(lista_animale)
+  cuvant = random.choice(animale)
   numar_litere = len(cuvant)
 
   sfarsit_joc = False
@@ -50,14 +50,15 @@ def mainGame():
 
     # Citim litera de la utilizator
     litera_introdusa = input("Ghiciti o litera: ").lower()
-    os.system('clear')
+    os.system('cls')
 
     # Da un indiciu
     if (litera_introdusa == "indiciu"):
       indiciu()
 
     # Desenele ce reprezinta "spanzuratoarea" pe fiecare stadiu
-    from ASCII_art import stages
+
+    from ASCII__art import stages
     print(stages[vieti])  # De fixat, sare peste anumite stagii finale
 
     # Inlocuieste fiecare linie cu litera corespunzatoare sau de fapt..
@@ -82,7 +83,7 @@ def mainGame():
 
     # Nu au mai ramas spatii necompletate. Runda s-a terminat
     if "_" not in linii:
-      os.system('clear')
+      os.system('cls')
       sfarsit_joc = True
       print("Ai ghicit cuvantul! \n")
 
@@ -102,7 +103,7 @@ def mainGame():
     if (vreaSaContinuie == "da"):
       mainGame()
       sfarsit_joc = False
-      os.system('clear')
+      os.system('cls')
 
 
 # Ruleaza Programul
