@@ -8,7 +8,7 @@ import random
 def indiciu():
   indiciu = ""
   numar_litere = len(cuvant)
-  indexul_unei_litere = random.randint(0, numar_litere)
+  indexul_unei_litere = random.randint(0, numar_litere - 1)
 
   print(f"Indiciul este: {cuvant[indexul_unei_litere]}")
 
@@ -52,10 +52,6 @@ def mainGame():
     litera_introdusa = input("Ghiciti o litera: ").lower()
     os.system('cls')
 
-    # Da un indiciu
-    if (litera_introdusa == "indiciu"):
-      indiciu()
-
     # Desenele ce reprezinta "spanzuratoarea" pe fiecare stadiu
 
     from ASCII__art import stages
@@ -68,31 +64,35 @@ def mainGame():
       if litera == litera_introdusa:
         linii[pozitie] = litera
 
-    # Litera introdusa nu se gaseste in cuvant
-    if litera_introdusa not in cuvant:
-      vieti -= 1
-      print(f"Litera {litera_introdusa} nu face parte din cuvant.")
+    # Da un indiciu
+    if (litera_introdusa == "indiciu"):
+      indiciu()
+    else:
+      # Litera introdusa nu se gaseste in cuvant
+      if litera_introdusa not in cuvant:
+        vieti -= 1
+        print(f"Litera {litera_introdusa} nu face parte din cuvant.")
 
-      # Nu mai sunt vieti, runda s-a terminat
-      if vieti == 0:
-        os.system('clear')
+        # Nu mai sunt vieti, runda s-a terminat
+        if vieti == 0:
+          os.system('cls')
+          sfarsit_joc = True
+          print(stages[0])
+          print("Ai pierdut.")
+          print(f"Cuvantul era {cuvant}. \n")
+
+      # Nu au mai ramas spatii necompletate. Runda s-a terminat
+      if "_" not in linii:
+        os.system('cls')
         sfarsit_joc = True
-        print(stages[0])
-        print("Ai pierdut.")
-        print(f"Cuvantul era {cuvant}. \n")
+        print("Ai ghicit cuvantul! \n")
 
-    # Nu au mai ramas spatii necompletate. Runda s-a terminat
-    if "_" not in linii:
-      os.system('cls')
-      sfarsit_joc = True
-      print("Ai ghicit cuvantul! \n")
+      # Litera deja in cuvant
+      if litera_introdusa in cuvant:
+        print(f"Litera {litera_introdusa} este corecta (sau este deja ghicita).")
 
-    # Litera deja in cuvant
-    if litera_introdusa in cuvant:
-      print(f"Litera {litera_introdusa} este corecta (sau este deja ghicita).")
-
-    # Unesc toate elementele listei "linii" pentru a le transforma intr-un string
-    print(f"{''.join(linii)} \n")
+      # Unesc toate elementele listei "linii" pentru a le transforma intr-un string
+      print(f"{''.join(linii)} \n")
 
   # Daca S-a terminat runda, intreba jucatorul daca mai vrea sa continuie
   if sfarsit_joc:
@@ -101,9 +101,9 @@ def mainGame():
 
     # Daca da, continua
     if (vreaSaContinuie == "da"):
-      mainGame()
-      sfarsit_joc = False
       os.system('cls')
+      sfarsit_joc = False
+      mainGame()
 
 
 # Ruleaza Programul
