@@ -69,7 +69,7 @@ while not sfarsit_joc:
         litera = cuvant[pozitie]
 
         if litera == ghiceste:
-            linii[pozitie] = litera
+            linii[pozitie] = litera #test
 
 #Verific daca jucatorul a ales corect
 
