@@ -26,6 +26,16 @@ def alegeCuvantRandom():
   lista = random.choice(list(set_cuvinte.keys()))
   cuvant = random.choice(set_cuvinte[lista])
 
+scor = 0
+
+def tineScor():
+  global scor
+  if (numar_indicii < 2):
+    scor += 50
+  else:
+    scor += 100
+  print(f"Scorul tau este {scor}")
+
 # Meniul Principal, Turorial
 def mainGameIntroduction():
   from ASCII__art import logo
@@ -34,6 +44,7 @@ def mainGameIntroduction():
   print("Bine ati venit la jocul de spanzuratoare!")
   print("Daca te blochezi la un cuvant, scrie indiciu in terminal!")
   print("Ai doua indicii pe runda! \n")
+  print("Daca ti-ai dat seama cuvantul, scriel! \n")
   input("Apasa enter pentru a incepe jocul!").lower()
   os.system('cls')
   mainGame()
@@ -49,7 +60,7 @@ def mainGame():
   # Pregatirea jocului
 
   alegeCuvantRandom()
-
+  
   global numar_indicii
   numar_indicii = 2
   
@@ -69,7 +80,7 @@ def mainGame():
 
   # Principala functie a jocului
   while not sfarsit_joc:
-
+    
     # Citim litera de la utilizator
     litera_introdusa = input("Ghiciti o litera: ").lower()
     os.system('cls')
@@ -103,6 +114,13 @@ def mainGame():
         puneDesenul()
         print("Ai epuizat deja numarul de indicii! \n")
         print(f"{''.join(linii)} \n")
+
+    elif (litera_introdusa == cuvant):
+        puneDesenul()
+        tineScor()
+        print("Ai ghicit cuvantul! \n")
+        print(f"{cuvant} \n")
+        sfarsit_joc = True
     else:
       # Caz 1: Litera introdusa nu se gaseste in cuvant
 
@@ -129,10 +147,10 @@ def mainGame():
 
       elif "_" not in linii:
         winsound.PlaySound('Audio/Game Win Sound.wav', 1)
-        os.system('cls')
         sfarsit_joc = True
+        os.system('cls')
+        tineScor()
         print("Ai ghicit cuvantul! \n")
-
       # Caz 3:  Litera deja in cuvant
 
       elif litera_introdusa in cuvant:
@@ -148,8 +166,7 @@ def mainGame():
   # Daca s-a terminat runda, intreba jucatorul daca mai vrea sa continuie
 
   if sfarsit_joc:
-    vreaSaContinuie = input(
-        "Vrei sa continui? Daca scrii da, jocul va continua! \n").lower()
+    vreaSaContinuie = input("Vrei sa continui? Daca scrii da, jocul va continua! \n").lower()
 
     # Daca da, continua
     if (vreaSaContinuie == "da"):
