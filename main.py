@@ -1,4 +1,5 @@
 import os  # Pentru A Sterge Consola
+import os.path
 import random
 import winsound # Pentru Audio
 from Cuvinte import set_cuvinte
@@ -26,15 +27,41 @@ def alegeCuvantRandom():
   lista = random.choice(list(set_cuvinte.keys()))
   cuvant = random.choice(set_cuvinte[lista])
 
+# Initializeaza Scorul
 scor = 0
+
+# Create a new folder
+if not os.path.exists('Salvari/'):
+  os.makedirs('Salvari/')
+
+  # Create a new file inside the folder
+  with open('Salvari/Scor.txt', 'w') as f:
+    f.write(f"{scor}")
+    scorMaxim = 0
+    f.close()
+
+else:
+  # Create a new file inside the folder
+  f = open("Salvari/Scor.txt", "r")
+  scorSalvat = f.read()
+  scorMaxim = int(scorSalvat)
+  f.close()
 
 def tineScor():
   global scor
+  global scorMaxim
   if (numar_indicii < 2):
     scor += 50
   else:
     scor += 100
+
+  # Create a new file inside the folder
   print(f"Scorul tau este {scor}")
+
+  if (scorMaxim >= scor):
+    print(f"Scorul tau maxim este {scorMaxim}")
+  else:
+    print(f"Scorul tau maxim este {scor}")
 
 # Meniul Principal, Turorial
 def mainGameIntroduction():
@@ -44,8 +71,7 @@ def mainGameIntroduction():
   print("Bine ati venit la jocul de spanzuratoare!")
   print("Daca te blochezi la un cuvant, scrie indiciu in terminal!")
   print("Ai doua indicii pe runda! \n")
-  print("Daca ti-ai dat seama cuvantul, scriel! \n")
-  print("Daca ti-ai dat seama cuvantul, scriel! \n")
+  print("Daca ti-ai dat seama cuvantul, scrie-l! \n")
   input("Apasa enter pentru a incepe jocul!").lower()
   os.system('cls')
   mainGame()
@@ -116,6 +142,14 @@ def mainGame():
         print("Ai epuizat deja numarul de indicii! \n")
         print(f"{''.join(linii)} \n")
 
+    elif (litera_introdusa == "skip"):
+        litera_introdusa = cuvant
+        puneDesenul()
+        tineScor()
+        print("Ai ghicit cuvantul! \n")
+        print(f"{cuvant} \n")
+        sfarsit_joc = True
+
     elif (litera_introdusa == cuvant):
         puneDesenul()
         tineScor()
@@ -141,6 +175,7 @@ def mainGame():
           sfarsit_joc = True
           from ASCII__art import stages
           print(stages[0])
+          print(f"Scorul tau este {scor} \n")
           print("Ai pierdut.")
           print(f"Cuvantul era {cuvant}. \n")
 
@@ -173,6 +208,14 @@ def mainGame():
     if (vreaSaContinuie == "da"):
       sfarsit_joc = False
       mainGame()
+    else:
+      with open('Salvari/Scor.txt', 'w') as f:
+        if (scorMaxim < scor):
+          f.write(f"{scor}")
+          f.close()
+        else:
+          f.write(f"{scorMaxim}")
+          f.close()
 
 
 # Ruleaza Programul
