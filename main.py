@@ -5,6 +5,11 @@ from Cuvinte import set_cuvinte
 
 # \n spune programului sa lase spatiu (endl in c++ sau <br> in html)
 
+def puneDesenul():
+  # Desenele ce reprezinta "spanzuratoarea" pe fiecare stadiu
+  from ASCII__art import stages
+  print(stages[vieti])  # De fixat, sare peste anumite stagii finale
+
 # Arata o litera din cuvant
 def indiciu():
   indiciu = ""
@@ -44,7 +49,6 @@ def mainGame():
   # Pregatirea jocului
 
   alegeCuvantRandom()
-  print(f"Domeniul : {lista} \n")
 
   global numar_indicii
   numar_indicii = 2
@@ -52,15 +56,16 @@ def mainGame():
   numar_litere = len(cuvant)
 
   sfarsit_joc = False
+  global vieti
   vieti = 6
   linii = []
+  puneDesenul()
 
   for _ in range(numar_litere):
     linii += "_"
 
-  print(' \n')
-  print(' '.join(linii))
-  print(' \n')
+  print(f"Domeniul : {lista} \n")
+  print(' '.join(linii) + ' \n')
 
   # Principala functie a jocului
   while not sfarsit_joc:
@@ -68,11 +73,6 @@ def mainGame():
     # Citim litera de la utilizator
     litera_introdusa = input("Ghiciti o litera: ").lower()
     os.system('cls')
-
-    # Desenele ce reprezinta "spanzuratoarea" pe fiecare stadiu
-
-    from ASCII__art import stages
-    print(stages[vieti])  # De fixat, sare peste anumite stagii finale
 
     # Inlocuieste fiecare linie cu litera corespunzatoare sau de fapt..
 
@@ -85,41 +85,49 @@ def mainGame():
     # Da un indiciu 
     # elif este similar cu else if in C++
     if ((litera_introdusa == "indiciu") and (numar_indicii > 0)):
-      print(f"{''.join(linii)} \n")
+      puneDesenul()
 
+      winsound.PlaySound('Audio/Game Hint Sound.wav', 1)
       numar_indicii = numar_indicii - 1
+      
+      indiciu()
+
       if (numar_indicii == 0):
         print("Nu mai ai indicii ramase! \n")
       else:
-        winsound.PlaySound('Audio/Game Hint Sound.wav', 1)
         print(f"Mai ai {numar_indicii} indiciu ramas! \n")
+
+      print(f"{''.join(linii)} \n")
       
-      indiciu()
     elif ((litera_introdusa == "indiciu") and (numar_indicii <= 0)):
-        print(f"{''.join(linii)} \n")
+        puneDesenul()
         print("Ai epuizat deja numarul de indicii! \n")
+        print(f"{''.join(linii)} \n")
     else:
       # Caz 1: Litera introdusa nu se gaseste in cuvant
 
       if litera_introdusa not in cuvant:
         vieti -= 1
-        print(f"Litera {litera_introdusa} nu face parte din cuvant.")
 
         if vieti > 0:
+          puneDesenul()
           winsound.PlaySound('Audio/Game Error Sound.wav', 1)
+
+        print(f"Litera {litera_introdusa} nu face parte din cuvant.")
 
         # Nu mai sunt vieti, runda s-a terminat
         if vieti == 0:
           winsound.PlaySound('Audio/Game Lose Sound.wav', 1)
           os.system('cls')
           sfarsit_joc = True
+          from ASCII__art import stages
           print(stages[0])
           print("Ai pierdut.")
           print(f"Cuvantul era {cuvant}. \n")
 
       # Caz 2:  Nu au mai ramas spatii necompletate. Runda s-a terminat
 
-      if "_" not in linii:
+      elif "_" not in linii:
         winsound.PlaySound('Audio/Game Win Sound.wav', 1)
         os.system('cls')
         sfarsit_joc = True
@@ -127,14 +135,14 @@ def mainGame():
 
       # Caz 3:  Litera deja in cuvant
 
-      if litera_introdusa in cuvant:
+      elif litera_introdusa in cuvant:
+        puneDesenul()
         print(f"Litera {litera_introdusa} este corecta (sau este deja ghicita).")
 
         if not sfarsit_joc:
           winsound.PlaySound('Audio/Generic Game Notification Sound.wav', 1)
 
       # Unesc toate elementele listei "linii" pentru a le transforma intr-un string
-
       print(f"{''.join(linii)} \n")
 
   # Daca s-a terminat runda, intreba jucatorul daca mai vrea sa continuie
