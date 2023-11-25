@@ -45,6 +45,7 @@ def mainGameIntroduction():
   print("Daca te blochezi la un cuvant, scrie indiciu in terminal!")
   print("Ai doua indicii pe runda! \n")
   print("Daca ti-ai dat seama cuvantul, scriel! \n")
+  print("Daca ti-ai dat seama cuvantul, scriel! \n")
   input("Apasa enter pentru a incepe jocul!").lower()
   os.system('cls')
   mainGame()
