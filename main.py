@@ -1,5 +1,6 @@
 import os  # Pentru A Sterge Consola
 import random
+from Cuvinte import set_cuvinte
 
 # \n spune programului sa lase spatiu (endl in c++ sau <br> in html)
 
@@ -12,14 +13,22 @@ def indiciu():
 
   print(f"Indiciul este: {cuvant[indexul_unei_litere]}")
 
+#Alege o cheie random si o valoare random din dictionar
+
+def alegeCuvantRandom():
+  global lista
+  global cuvant
+  lista = random.choice(list(set_cuvinte.keys()))
+  cuvant = random.choice(set_cuvinte[lista])
 
 # Meniul Principal
 def mainGameIntroduction():
   from ASCII__art import logo
+  alegeCuvantRandom()
   print(logo)
   print("\n")
   print("Bine ati venit la jocul de spanzuratoare!")
-  print("Cuvintele sunt nume de animale! \n")
+  print(f"Domeniul : {lista} \n")
   print("Daca te blochezi la un cuvant, scrie indiciu in terminal!")
   print("Ai doua indicii pe runda! \n")
   input("Apasa enter pentru a incepe jocul!").lower()
@@ -32,13 +41,11 @@ def mainGame():
   os.system('cls')
 
   # Pregatirea jocului
-  from Cuvinte import animale
 
+  alegeCuvantRandom()
   global numar_indicii
   numar_indicii = 2
-
-  global cuvant
-  cuvant = random.choice(animale)
+  
   numar_litere = len(cuvant)
 
   sfarsit_joc = False
@@ -48,7 +55,7 @@ def mainGame():
   for _ in range(numar_litere):
     linii += "_"
 
-  print(' ')
+  print(' \n')
   print(' '.join(linii))
   print(' \n')
 
@@ -82,11 +89,9 @@ def mainGame():
       if (numar_indicii == 0):
         print("Ai epuizat numarul de indicii! \n")
       else:
-        
         print(f"Mai ai {numar_indicii} indiciu ramas! \n")
       
       indiciu()
-    
     elif ((litera_introdusa == "indiciu") and (numar_indicii <= 0)):
       print(f"{''.join(linii)} \n")
       print(f"Ai epuizat numarul de indicii! \n")
