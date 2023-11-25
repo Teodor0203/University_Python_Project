@@ -34,6 +34,7 @@ def mainGameIntroduction():
   print("Bine ati venit la jocul de spanzuratoare!")
   print("Daca te blochezi la un cuvant, scrie indiciu in terminal!")
   print("Ai doua indicii pe runda! \n")
+  print("Daca ti-ai dat seama cuvantul, scriel! \n")
   input("Apasa enter pentru a incepe jocul!").lower()
   os.system('cls')
   mainGame()
@@ -103,6 +104,12 @@ def mainGame():
         puneDesenul()
         print("Ai epuizat deja numarul de indicii! \n")
         print(f"{''.join(linii)} \n")
+
+    elif (litera_introdusa == cuvant):
+        puneDesenul()
+        print("Ai ghicit cuvantul! \n")
+        print(f"{cuvant} \n")
+        sfarsit_joc = True
     else:
       # Caz 1: Litera introdusa nu se gaseste in cuvant
 
