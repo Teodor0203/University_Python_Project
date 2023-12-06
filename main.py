@@ -50,10 +50,12 @@ else:
 def tineScor():
   global scor
   global scorMaxim
-  if (numar_indicii < 2):
+  if (numar_indicii == 1):
+    scor += 100
+  elif (numar_indicii == 0):
     scor += 50
   else:
-    scor += 100
+    scor += 200
 
   # Create a new file inside the folder
   print(f"Scorul tau este {scor}")
