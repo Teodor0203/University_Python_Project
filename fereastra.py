@@ -9,13 +9,15 @@ mixer.music.set_volume(0.7)
 mixer.music.play()
 
 pygame.init()
+resolutiaEcranului = pygame.display.Info()
+# pygame.display.set_mode((infoObject.current_w, infoObject.current_h))
 
-
-ecran = pygame.display.set_mode((1920, 1080))
+ecran = pygame.display.set_mode((resolutiaEcranului.current_w, resolutiaEcranului.current_h))
+# ecran = pygame.display.set_mode((1700, 1000))
 pygame.display.set_caption("Spanzuratoarea")
 
 BG = pygame.image.load("interfata/bg2.jpg")
-screenUpdate = pygame.transform.scale(BG, (1920, 1080))
+screenUpdate = pygame.transform.scale(BG, (resolutiaEcranului.current_w, resolutiaEcranului.current_h))
 def font(size):
     return pygame.font.Font("interfata/font2.otf", size)
 
@@ -28,17 +30,16 @@ def joaca():
 
         ecran.blit(screenUpdate, (0, 0))
 
-        joaca_text = font(45).render("Bine ati venit la jocul de spanzuratoare!!", True, "black")
-        joaca_rect = joaca_text.get_rect(center=(960, 300))
+        joaca_text = font(42).render("Bine ati venit la jocul de spanzuratoare!!", True, "black")
+        joaca_rect = joaca_text.get_rect(center=(resolutiaEcranului.current_w / 2, 0 + (resolutiaEcranului.current_w * .1)))
         ecran.blit(joaca_text, joaca_rect)
 
-        joaca_inainte = Button(image=None, pos=(960, 500), text_input="INAINTE", font=font(55), base_color="black", hovering_color="white")
-        joaca_inapoi = Button(image=None, pos=(960, 650), text_input="INAPOI", font=font(55), base_color="black", hovering_color="white")
+        joaca_inainte = Button(image=None, pos=(resolutiaEcranului.current_w / 3, resolutiaEcranului.current_h / 1.7), text_input="INAINTE", font=font(55), base_color="black", hovering_color="white")
+        joaca_inapoi = Button(image=None, pos=(resolutiaEcranului.current_w / 1.5, resolutiaEcranului.current_h / 1.7), text_input="INAPOI", font=font(55), base_color="black", hovering_color="white")
 
 
         joaca_inainte.changeColor(pozitie_mouse_joca)
         joaca_inainte.update(ecran)
-
 
 
         joaca_inapoi.changeColor(pozitie_mouse_joca)
@@ -53,30 +54,35 @@ def joaca():
                     meniu_principal()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if joaca_inainte.checkForInput(pozitie_mouse_joca):
+                    joc.alegeNouCuvant()
                     continua_1(joc)
         pygame.display.update()
 
 def continua_1(joc):
-
     while True:
-        pozitie_mouse_continua = pygame.mouse.get_pos()
+        if joc.vieti <= 0 or joc.jocTerminat:
+            joaca()
 
+        pozitie_mouse_continua = pygame.mouse.get_pos()
         ecran.blit(screenUpdate, (0, 0))
 
-        for litera in range(len(joc.cuvant)):
-            text_litera = font(85).render("_", True, "black")
-            ecran.blit(text_litera,(900 + litera * 100, 950))
+        for litera in range(len(joc.linii)):
+            text_litera = font(85).render(joc.linii[litera], True, "black")
+            ecran.blit(text_litera,(300 + litera * 100, resolutiaEcranului.current_h - 85 * 2))
+
+        # for litera in range(len(joc.cuvant)):
+        #     text_litera = font(85).render("_", True, "black")
+        #     ecran.blit(text_litera,(300 + litera * 100, resolutiaEcranului.current_h - 85 * 2))
 
         scor_text = font(35).render(f"Scor: {joc.scor}", True, "black")
-        scor_rect = scor_text.get_rect(center=(1600, 100))
+        # scor_rect = scor_text.get_rect(center=(resolutiaEcranului.current_w - 300, 100))
+        ecran.blit(scor_text, (resolutiaEcranului.current_w * .78, 100))
 
         scor_maxim_text = font(35).render(f"Scor maxim: {joc.scor_maxim}", True, "black")
-        scor_maxim_rect = scor_maxim_text.get_rect(center=(1600, 200))
-        ecran.blit(scor_maxim_text, scor_maxim_rect)
+        # scor_maxim_rect = scor_maxim_text.get_rect(center=(resolutiaEcranului.current_w - 300, 200))
+        ecran.blit(scor_maxim_text, (resolutiaEcranului.current_w * .66, 200))
 
-        ecran.blit(scor_text, scor_rect)
-
-        continua_inapoi = Button(image=None, pos=(150, 1020), text_input="MENIU", font=font(50), base_color="black", hovering_color="white")
+        continua_inapoi = Button(image=None, pos=(150, resolutiaEcranului.current_h - 85), text_input="MENIU", font=font(50), base_color="black", hovering_color="white")
         continua_indiciu = Button(image=None, pos=(100, 100), text_input="?", font=font(55), base_color="black", hovering_color="white")
 
         continua_indiciu.changeColor(pozitie_mouse_continua)
@@ -84,6 +90,12 @@ def continua_1(joc):
 
         continua_inapoi.changeColor(pozitie_mouse_continua)
         continua_inapoi.update(ecran)
+
+        # Define a variable to store the character
+        char = ""
+
+        # Main loop
+        esteOLiteraValida = True
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -95,11 +107,39 @@ def continua_1(joc):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if continua_indiciu.checkForInput(pozitie_mouse_continua):
                     indiciu(joc)
+
+            if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
+                esteOLiteraValida = False
+            elif event.type == pygame.KEYDOWN:
+                char = event.unicode if event.unicode else chr(event.key)
+                ghiceste_litera(char, joc)
+
+        test_text = font(35).render(f"Litera introdusa: {char}", True, "black")
+        # test_rect = test_text.get_rect(center=(resolutiaEcranului.current_w - 300, 300))
+        ecran.blit(test_text, (resolutiaEcranului.current_w * .545, 300))
+        
+        test_text1 = font(35).render(f"Vietii ramase: {joc.vieti}", True, "black")
+        # test_rect1 = test_text1.get_rect(center=(resolutiaEcranului.current_w - 300, 400))
+        ecran.blit(test_text1, (resolutiaEcranului.current_w * .6, 400))
+
         pygame.display.update()
 
+def ghiceste_litera(litera_introdusa, joc):
+    for pozitie, litera in enumerate(joc.cuvant):
+        if litera == litera_introdusa:
+            joc.linii[pozitie] = litera
+    
+    if litera_introdusa not in joc.cuvant:
+        joc.vieti -= 1
+                     
+        if joc.vieti == 0:
+            joc.jocTerminat = False
+
+    elif "_" not in joc.linii:
+        joc.tine_scor()
+        joc.jocTerminat = True
 
 def indiciu(joc):
-
     while True:
         pozite_mouse_indiciu = pygame.mouse.get_pos()
 
@@ -121,6 +161,7 @@ def indiciu(joc):
                 if indiciu_inapoi.checkForInput(pozite_mouse_indiciu):
                     continua_1(joc)
         pygame.display.update()
+
 #def optiuni():
 #    while True:
 #        pozite_mouse_optiuni = pygame.mouse.get_pos()
@@ -144,21 +185,36 @@ def indiciu(joc):
 #                if optiuni_inapoi.checkForInput(pozite_mouse_optiuni):
 #                    meniu_principal()
 #        pygame.display.update()
+
 def meniu_principal():
+    testI = 0
+    moveDown = False
 
     while True:
 
         ecran.blit(screenUpdate, (0, 0))
 
+        if testI > 15:
+            moveDown = True
+        elif testI < 0:
+            moveDown = False
+
+        if moveDown:
+            testI -= .05
+        else:
+            testI += .05
+
         pozitie_mouse_meniu = pygame.mouse.get_pos()
         meniu_text = font(100).render("SPANZURATOAREA", True, "black")
-        meniu_rect = meniu_text.get_rect(center=(960,100))
+        meniu_rect = meniu_text.get_rect(center=(resolutiaEcranului.current_w / 2, 0 + (resolutiaEcranului.current_w * .1)))
 
-        buton_start = Button(image=None, pos=(700, 600), text_input="START", font=font(100), base_color="black", hovering_color="white")
+        meniu_rect = meniu_text.get_rect(center=(resolutiaEcranului.current_w / 2, testI + (resolutiaEcranului.current_w * .1)))
+
+        buton_start = Button(image=None, pos=(resolutiaEcranului.current_w / 3, resolutiaEcranului.current_h / 1.7), text_input="START", font=font(100), base_color="black", hovering_color="white")
 
         #buton_optiuni = Button(image=None, pos=(960, 650), text_input="INSTRUCTIUNI", font=font(76), base_color="black", hovering_color="white")
 
-        buton_iesire = Button(image=None, pos=(1200, 600), text_input="IESI", font=font(100), base_color="black", hovering_color="white")
+        buton_iesire = Button(image=None, pos=(resolutiaEcranului.current_w / 1.5, resolutiaEcranului.current_h / 1.7), text_input="IESI", font=font(100), base_color="black", hovering_color="white")
 
         ecran.blit(meniu_text, meniu_rect)
 

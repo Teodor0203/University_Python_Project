@@ -14,6 +14,7 @@ class HangmanGame:
         self.numar_indicii = 2
         self.vieti = 6
         self.linii = []
+        self.jocTerminat = False
 
     def ghiceste_litera(self, litera_introdusa):
       for pozitie, litera in enumerate(self.cuvant):
@@ -61,6 +62,14 @@ class HangmanGame:
         self.indexul_unei_litere = random.randint(0, len(self.cuvant) - 1)
         print(f"Indiciul este: {self.cuvant[self.indexul_unei_litere]}")
 
+    def alegeNouCuvant(self):
+        self.jocTerminat = False
+        self.pune_desenul()
+        self.alege_cuvant_random()
+        self.linii = ["_" for _ in range(len(self.cuvant))]
+        # print(f"Domeniul : {self.lista} \n")
+        # print(' '.join(self.linii) + ' \n')
+
     def main_game(self):
         self.pune_desenul()
         self.alege_cuvant_random()
@@ -99,7 +108,6 @@ class HangmanGame:
                 break
 
             else:
-
                 self.ghiceste_litera(litera_introdusa)
                 if litera_introdusa not in self.cuvant:
                     self.vieti -= 1
