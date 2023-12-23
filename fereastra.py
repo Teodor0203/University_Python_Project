@@ -60,6 +60,37 @@ def joaca():
 
 def continua_1(joc):
     while True:
+        
+        imp = pygame.image.load("interfata/stages/stage_0.png")
+
+        if joc.vieti >= 6:
+            imp = pygame.image.load("interfata/stages/stage_0.png")
+
+        if joc.vieti == 5:
+            imp = pygame.image.load("interfata/stages/stage_1.png")
+
+        if joc.vieti == 4:
+            imp = pygame.image.load("interfata/stages/stage_2.png")
+        
+        if joc.vieti == 3:
+            imp = pygame.image.load("interfata/stages/stage_3.png")
+
+        if joc.vieti == 2:
+            imp = pygame.image.load("interfata/stages/stage_4.png")
+
+        if joc.vieti == 1:
+            imp = pygame.image.load("interfata/stages/stage_5.png")
+
+        if joc.vieti <= 0:
+            imp = pygame.image.load("interfata/stages/stage_6.png")
+
+        ecran.blit(imp,(0, resolutiaEcranului.current_h * .3))
+        pygame.display.flip()
+
+        # test = pygame.image.load("interfata/test.png")
+        # test1 = pygame.transform.scale(test, (256, 256))
+        # ecran.blit(test1, (0, 0))
+
         if joc.vieti <= 0 or joc.jocTerminat:
             joaca()
 
@@ -108,7 +139,7 @@ def continua_1(joc):
                 if continua_indiciu.checkForInput(pozitie_mouse_continua):
                     indiciu(joc)
 
-            if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
+            if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE) or (event.type == pygame.KEYDOWN and event.key == pygame.K_PRINTSCREEN):
                 esteOLiteraValida = False
             elif event.type == pygame.KEYDOWN:
                 char = event.unicode if event.unicode else chr(event.key)
@@ -117,12 +148,8 @@ def continua_1(joc):
         test_text = font(35).render(f"Litera introdusa: {char}", True, "black")
         # test_rect = test_text.get_rect(center=(resolutiaEcranului.current_w - 300, 300))
         ecran.blit(test_text, (resolutiaEcranului.current_w * .545, 300))
-        
-        test_text1 = font(35).render(f"Vietii ramase: {joc.vieti}", True, "black")
-        # test_rect1 = test_text1.get_rect(center=(resolutiaEcranului.current_w - 300, 400))
-        ecran.blit(test_text1, (resolutiaEcranului.current_w * .6, 400))
 
-        pygame.display.update()
+        # pygame.display.update()
 
 def ghiceste_litera(litera_introdusa, joc):
     for pozitie, litera in enumerate(joc.cuvant):
