@@ -69,6 +69,7 @@ def joaca():
         pygame.display.update()
 def continua_1(joc):
     while True:
+        
 
         imp = pygame.image.load("interfata/stages/stage_0.png")
 
@@ -91,20 +92,16 @@ def continua_1(joc):
             imp = pygame.image.load("interfata/stages/stage_5.png")
 
         if joc.vieti <= 0:
-            imp = pygame.image.load("interfata/stages/stage_6.png")
-
-        # test = pygame.image.load("interfata/test.png")
-        # test1 = pygame.transform.scale(test, (256, 256))
-        # ecran.blit(test1, (0, 0))
-
-        if joc.vieti <= 0:
             pierdut(joc)
 
         if "_" not in joc.linii:
             castigat(joc)
-
-
-
+        
+            
+        # test = pygame.image.load("interfata/test.png")
+        # test1 = pygame.transform.scale(test, (256, 256))
+        # ecran.blit(test1, (0, 0))
+        
         pozitie_mouse_continua = pygame.mouse.get_pos()
         ecran.blit(screenUpdate, (0, 0))
 
@@ -112,6 +109,7 @@ def continua_1(joc):
             text_litera = font(85).render(joc.linii[litera], True, "black")
             ecran.blit(text_litera,(800 + litera * 100, resolutiaEcranului.current_h - 85 * 2))
 
+      
         # for litera in range(len(joc.cuvant)):
         #     text_litera = font(85).render("_", True, "black")
         #     ecran.blit(text_litera,(300 + litera * 100, resolutiaEcranului.current_h - 85 * 2))
@@ -141,8 +139,6 @@ def continua_1(joc):
         continua_inapoi.changeColor(pozitie_mouse_continua)
         continua_inapoi.update(ecran)
 
-
-
         # Main loop
         esteOLiteraValida = True
 
@@ -163,9 +159,10 @@ def continua_1(joc):
                 char = event.unicode if event.unicode else chr(event.key)
                 ghiceste_litera(char, joc)
 
+
         ecran.blit(imp, (0, 550))
         pygame.display.flip()
-        #pygame.display.update()
+       
 
 
 
@@ -314,12 +311,13 @@ def pierdut(joc):
     while True:
 
         #PANCARDA1 ESTE PENTRU AFISAJUL "AI PIERDUT/CASTIGAT!", IAR PANCARDA2 AR PUTEA FI FOLOSIT PENTRU TASTATURA
-
+        imp = pygame.image.load("interfata/stages/stage_6.png")
         pancarda = pygame.image.load("interfata/pancarda1.png")
         pancarda_2 = pygame.transform.scale(pancarda, (500, 250))
         rect_pancarda = pancarda_2.get_rect()
         rect_pancarda.center = (910, 540)
-
+        
+        ecran.blit(imp, (0, 550))
         ecran.blit(pancarda_2, rect_pancarda)
 
         joaca_text = font(40).render("Ai pierdut!", True, "black")
@@ -353,6 +351,8 @@ def pierdut(joc):
                     joc.alegeNouCuvant()
                     continua_1(joc)
         pygame.display.update()
+
+        
 
 def castigat(joc):
 
