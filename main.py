@@ -1,3 +1,4 @@
+import random
 import pygame, sys
 from pygame import mixer
 from buton import Button
@@ -191,13 +192,24 @@ def ghiceste_litera(litera_introdusa, joc):
 
 def indiciu(joc):
 
+    joc.indexul_unei_litere = random.randint(0, len(joc.cuvant) - 1)
+
     while True:
         pozite_mouse_indiciu = pygame.mouse.get_pos()
 
-        indiciu_text = font(35).render(f"Indiciul este: {joc.cuvant[joc.indexul_unei_litere - 1]}", True, "black")
-        indiciu_rect = indiciu_text.get_rect(center=(300, 300))
-        ecran.blit(indiciu_text, indiciu_rect)
-
+        #Verifica daca mai ai indicii si afiseaza indiciul.
+        if joc.numar_indicii > 0:
+            indiciu_text = font(35).render(f"Indiciul este: {joc.cuvant[joc.indexul_unei_litere]}", True, "black")
+            indiciu_rect = indiciu_text.get_rect(center=(300, 300))
+            ecran.blit(indiciu_text, indiciu_rect)
+        
+        #Atunci cand ramai fara indicii iti spune ca nu mai ai indicii.
+        elif joc.numar_indicii <= 0:
+            indiciu_0 = font(35).render(f"Nu mai ai indicii", True, "black")
+            indiciu_0_rect = indiciu_0.get_rect(center=(300, 300))
+            ecran.blit(indiciu_0, indiciu_0_rect)
+        
+        
         indiciu_inapoi = Button(image=None, pos=(30, 300), text_input="x", font=font(35), base_color="black",
                                 hovering_color="white")
 
