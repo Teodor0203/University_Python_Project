@@ -11,7 +11,7 @@ class HangmanGame:
         self.scor_maxim = self.incarca_scor_maxim()
         self.lista = ""
         self.cuvant = ""
-        self.numar_indicii = 2
+        self.numar_indicii = 3
         self.vieti = 6
         self.linii = []
         self.jocTerminat = False
@@ -26,6 +26,22 @@ class HangmanGame:
       for pozitie, litera in enumerate(self.cuvant):
         if litera == litera_introdusa:
           self.linii[pozitie] = litera
+
+    def tine_scor(self):
+        if self.numar_indicii == 3:
+            self.scor += 250
+        elif self.numar_indicii == 2:
+            self.scor += 100
+        else:
+            self.scor += 50
+
+        if self.scor_maxim < self.scor:
+            self.scor_maxim = self.scor
+
+            with open('Salvari/Scor.txt', 'w') as f:
+                f.write(f"{self.scor_maxim}")
+
+
     def incarca_scor_maxim(self):
         if not os.path.exists('Salvari/'):
             os.makedirs('Salvari/')
@@ -42,21 +58,6 @@ class HangmanGame:
 
         return scor_maxim
 
-    def tine_scor(self):
-        if self.numar_indicii == 2:
-            self.scor += 250
-        elif self.numar_indicii == 1:
-            self.scor += 100
-        else:
-            self.scor += 50
-
-        print(f"Scorul tau este {self.scor}")
-
-        if self.scor_maxim >= self.scor:
-            print(f"Scorul tau maxim este {self.scor_maxim}")
-        else:
-            print(f"Scorul tau maxim este {self.scor}")
-
     def pune_desenul(self):
         print(stages[self.vieti])
 
@@ -69,6 +70,9 @@ class HangmanGame:
         print(f"Indiciul este: {self.cuvant[self.indexul_unei_litere]}")
 
     def alegeNouCuvant(self):
+        self.scor_maxim = self.incarca_scor_maxim()
+        # self.tine_scor()
+        self.numar_indicii = 3
         self.jocTerminat = False
         self.pune_desenul()
         self.alege_cuvant_random()
