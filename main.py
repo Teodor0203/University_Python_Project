@@ -193,6 +193,7 @@ def ghiceste_litera(litera_introdusa, joc):
 def indiciu(joc):
 
     joc.indexul_unei_litere = random.randint(0, len(joc.cuvant) - 1)
+    joc.numar_indicii -= 1
 
     while True:
         pozite_mouse_indiciu = pygame.mouse.get_pos()

@@ -11,7 +11,7 @@ class HangmanGame:
         self.scor_maxim = self.incarca_scor_maxim()
         self.lista = ""
         self.cuvant = ""
-        self.numar_indicii = 2
+        self.numar_indicii = 3
         self.vieti = 6
         self.linii = []
         self.jocTerminat = False
@@ -20,6 +20,7 @@ class HangmanGame:
 
     def reset_game_state(self):
         self.vieti = 6
+        self.numar_indicii = 3
         self.jocTerminat = False
 
     def ghiceste_litera(self, litera_introdusa):
@@ -43,9 +44,9 @@ class HangmanGame:
         return scor_maxim
 
     def tine_scor(self):
-        if self.numar_indicii == 2:
+        if self.numar_indicii == 3:
             self.scor += 250
-        elif self.numar_indicii == 1:
+        elif self.numar_indicii == 2:
             self.scor += 100
         else:
             self.scor += 50
