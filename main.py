@@ -61,7 +61,6 @@ def meniu_dificultate():
 
         ecran.blit(joaca_text_1, joaca_rect_1)
         ecran.blit(joaca_text_2, joaca_rect_2)
-        
 
         # joaca_inainte = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .3, resolutia_ecranului.current_h * .6), text_input="INAINTE", font=font(75), culoare_baza="black", culoare_activare="white")
         joaca_inapoi = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .9), text_input="ÎNAPOI", font=font(75), culoare_baza="black", culoare_activare="white")
@@ -216,7 +215,7 @@ def indiciu(joc):
     joc.numar_indicii -= 1
 
     while True:
-        ecran.blit(screenUpdate, (0, 0))
+        ecran.blit(screenUpdate_2, (0, 0))
         arata_stadile(joc)
         main_game_gui(joc)
         pozite_mouse_indiciu = pygame.mouse.get_pos()
@@ -377,11 +376,28 @@ def pierdut(joc):
         pygame.display.update()
 
 def castigat(joc):
+    viteza_animatiei = 0
+    animeaza_alt_frame = False
+
     while True:
         ecran.blit(screenUpdate_2, (0, 0))
+        imp = pygame.image.load("interfata/stages/stage_00.png")
+
+        if viteza_animatiei > .5:
+            animeaza_alt_frame = True
+        elif viteza_animatiei < 0:
+            animeaza_alt_frame = False
+
+        if animeaza_alt_frame:
+            viteza_animatiei -= .05
+            imp = pygame.image.load("interfata/stages/stage_07.png")
+        else:
+            viteza_animatiei += .05
+            imp = pygame.image.load("interfata/stages/stage_08.png")
+
+        ecran.blit(imp, (0, resolutia_ecranului.current_h - 512))
         joc.aCastigat = True
         main_game_gui(joc)
-        arata_stadile(joc)
 
         pancarda = pygame.image.load("interfata/semn_3.png")
         #pancarda_2 = pygame.transform.scale(pancarda, (500, 250))
