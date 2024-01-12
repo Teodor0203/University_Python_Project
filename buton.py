@@ -19,14 +19,14 @@ class Buton():
 
             ecran.blit(self.text, self.text_rect)
 
-        def verificaInput(self, positie):
-            if positie[0] in range(self.rect.left, self.rect.right) and positie[1] in range(self.rect.top, self.rect.bottom):
+        def verificaInput(self, pozitie):
+            if pozitie[0] in range(self.rect.left, self.rect.right) and pozitie[1] in range(self.rect.top, self.rect.bottom):
                 return True
             else:
                 return False
 
-        def schimbaCuloare(self, positie):
-            if positie[0] in range(self.rect.left, self.rect.right) and positie[1] in range(self.rect.top, self.rect.bottom):
+        def schimbaCuloare(self, pozitie):
+            if pozitie[0] in range(self.rect.left, self.rect.right) and pozitie[1] in range(self.rect.top, self.rect.bottom):
                 self.text = self.font.render(self.text_input, True, self.culoare_activare)
             else:
                 self.text = self.font.render(self.text_input, True, self.culoare_baza)

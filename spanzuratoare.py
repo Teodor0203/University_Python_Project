@@ -1,7 +1,7 @@
 import os
 import random
 import winsound
-from cuvinte import set_cuvinte
+from cuvinte import cuvinte_usoare, cuvinte_grele
 from ASCII__art import stages, logo
 import pygame
 
@@ -11,10 +11,13 @@ class HangmanGame:
         self.scor_maxim = self.incarca_scor_maxim()
         self.lista = ""
         self.cuvant = ""
-        self.numar_indicii = 2
+        self.numar_indicii = 3
         self.vieti = 6
         self.linii = []
         self.jocTerminat = False
+        self.aCastigat = False
+        self.rundaFinalizata = False
+        self.nivel_Dificultate = 0
 
     def reset_game_state(self):
         self.vieti = 6
@@ -24,6 +27,22 @@ class HangmanGame:
       for pozitie, litera in enumerate(self.cuvant):
         if litera == litera_introdusa:
           self.linii[pozitie] = litera
+
+    def tine_scor(self):
+        if self.numar_indicii == 3:
+            self.scor += 250
+        elif self.numar_indicii == 2:
+            self.scor += 100
+        else:
+            self.scor += 50
+
+        if self.scor_maxim < self.scor:
+            self.scor_maxim = self.scor
+
+            with open('Salvari/Scor.txt', 'w') as f:
+                f.write(f"{self.scor_maxim}")
+
+
     def incarca_scor_maxim(self):
         if not os.path.exists('Salvari/'):
             os.makedirs('Salvari/')
@@ -40,39 +59,30 @@ class HangmanGame:
 
         return scor_maxim
 
-    def tine_scor(self):
-        if self.numar_indicii == 2:
-            self.scor += 250
-        elif self.numar_indicii == 1:
-            self.scor += 100
-        else:
-            self.scor += 50
-
-        print(f"Scorul tau este {self.scor}")
-
-        if self.scor_maxim >= self.scor:
-            print(f"Scorul tau maxim este {self.scor_maxim}")
-        else:
-            print(f"Scorul tau maxim este {self.scor}")
-
     def pune_desenul(self):
         print(stages[self.vieti])
 
     def alege_cuvant_random(self):
-        self.lista = random.choice(list(set_cuvinte.keys()))
-        self.cuvant = random.choice(set_cuvinte[self.lista])
+        if self.nivel_Dificultate == 1:
+            self.lista = random.choice(list(cuvinte_grele.keys()))
+            self.cuvant = random.choice(cuvinte_grele[self.lista])
+
+        elif self.nivel_Dificultate == 0:
+            self.lista = random.choice(list(cuvinte_usoare.keys()))
+            self.cuvant = random.choice(cuvinte_usoare[self.lista])
 
     def indiciu(self):
         self.indexul_unei_litere = random.randint(0, len(self.cuvant) - 1)
         print(f"Indiciul este: {self.cuvant[self.indexul_unei_litere]}")
 
     def alegeNouCuvant(self):
+        self.scor_maxim = self.incarca_scor_maxim()
+        # self.tine_scor()
         self.jocTerminat = False
-        self.pune_desenul()
+        self.numar_indicii = 3
         self.alege_cuvant_random()
         self.linii = ["_" for _ in range(len(self.cuvant))]
-        # print(f"Domeniul : {self.lista} \n")
-        # print(' '.join(self.linii) + ' \n')
+
 
     def main_game(self):
         self.pune_desenul()
