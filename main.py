@@ -55,16 +55,16 @@ def meniu_dificultate():
         ecran.blit(cautat, cautat_rect)
         pozitie_mouse_joca = pygame.mouse.get_pos()
 
-        joaca_text_1 = font(41).render("El e Mircea și urmează să fie judecat.", True, "black")
+        joaca_text_1 = font(32).render("El e Mircea și urmează să fie judecat.", True, "black")
         joaca_rect_1 = joaca_text_1.get_rect(center=(resolutia_ecranului.current_w * .63,  (resolutia_ecranului.current_h * .2)))
         
-        joaca_text_2 = font(42).render("Ghicește cuvântul pentru a-l salva.", True, "black")
+        joaca_text_2 = font(35).render("Ghicește cuvântul pentru a-l salva.", True, "black")
         joaca_rect_2 = joaca_text_2.get_rect(center=(resolutia_ecranului.current_w * .63,  (resolutia_ecranului.current_h * .3)))
 
-        joaca_text_indicatii = font(55).render("Primești doar două indicii!", True, "darkred")
+        joaca_text_indicatii = font(45).render("Primești doar două indicii!", True, "darkred")
         joaca_rect_indicatii = joaca_text_indicatii.get_rect(center=(resolutia_ecranului.current_w * .63, (resolutia_ecranului.current_h * .4)))
 
-        joaca_text_dificultate = font(50).render("Alege dificultatea... cu grijă:", True, "black")
+        joaca_text_dificultate = font(40).render("Alege dificultatea... cu grijă:", True, "black")
         joaca_rect_dificultate = joaca_text_dificultate.get_rect(center=(resolutia_ecranului.current_w * .63, (resolutia_ecranului.current_h * .5)))
 
         dificultate_GREU = Buton(imagine=None, pos=(resolutia_ecranului.current_w * 0.47, resolutia_ecranului.current_h * 0.74), text_input="GREU", font=font(75), culoare_baza="black", culoare_activare=("white"))
@@ -81,7 +81,7 @@ def meniu_dificultate():
         ecran.blit(joaca_text_dificultate, joaca_rect_dificultate)
 
         # joaca_inainte = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .3, resolutia_ecranului.current_h * .6), text_input="INAINTE", font=font(75), culoare_baza="black", culoare_activare="white")
-        joaca_inapoi = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .63, resolutia_ecranului.current_h * .93), text_input="ÎNAPOI", font=font(75), culoare_baza="black", culoare_activare="white")
+        joaca_inapoi = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .63, resolutia_ecranului.current_h * .93), text_input="ÎNAPOI", font=font(60), culoare_baza="black", culoare_activare="white")
 
         # joaca_inainte.schimbaCuloare(pozitie_mouse_joca)
         # joaca_inainte.update(ecran)
@@ -171,20 +171,20 @@ def main_game_gui(joc):
     ecran.blit(semn_1,semn_2_rect)
     ecran.blit(semn_1,semn_3_rect)
     ecran.blit(semn_1,semn_4_rect)
-    ecran.blit(scor_text, (resolutia_ecranului.current_w * .4, resolutia_ecranului.current_h * .14))
-    ecran.blit(scor_afisaj, (resolutia_ecranului.current_w * .43, resolutia_ecranului.current_h * .2))
+    ecran.blit(scor_text, (resolutia_ecranului.current_w * .39, resolutia_ecranului.current_h * .14))
+    ecran.blit(scor_afisaj, (resolutia_ecranului.current_w * .42, resolutia_ecranului.current_h * .2))
 
 
     scor_maxim_text = font(30).render(f"Scor maxim:", True, "black")
     scor_maxim_afisaj = font(35).render(f"{joc.scor_maxim}", True, "black")
     # scor_maxim_rect = scor_maxim_text.get_rect(center=(resolutia_ecranului.current_w - 300, 200))
-    ecran.blit(scor_maxim_text, (resolutia_ecranului.current_w * .59, resolutia_ecranului.current_h * .14))
-    ecran.blit(scor_maxim_afisaj, (resolutia_ecranului.current_w * .64, resolutia_ecranului.current_h * .2))
+    ecran.blit(scor_maxim_text, (resolutia_ecranului.current_w * .58, resolutia_ecranului.current_h * .14))
+    ecran.blit(scor_maxim_afisaj, (resolutia_ecranului.current_w * .63, resolutia_ecranului.current_h * .2))
 
     domeniu_text = font(35).render("Domeniul:", True, "black")
     domeniu_afisaj = font(35).render(f"{joc.lista}", True, "black")
-    ecran.blit(domeniu_text, (resolutia_ecranului.current_w * .82, resolutia_ecranului.current_h * .14))
-    ecran.blit(domeniu_afisaj, (resolutia_ecranului.current_w * .82, resolutia_ecranului.current_h * .2))
+    ecran.blit(domeniu_text, (resolutia_ecranului.current_w * .81, resolutia_ecranului.current_h * .14))
+    ecran.blit(domeniu_afisaj, (resolutia_ecranului.current_w * .81, resolutia_ecranului.current_h * .2))
     
 def joc_principal(joc):
     joc.aCastigat = False
