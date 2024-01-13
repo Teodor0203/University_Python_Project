@@ -10,7 +10,7 @@ class Cursor():
         pygame.mouse.set_visible(False)
 
     def update(self):
-        self.pos =pygame.mouse.get_pos()
+        self.pos = pygame.mouse.get_pos()
         self.ecran.blit(self.imagine, self.pos)
 
 
