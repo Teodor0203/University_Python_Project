@@ -5,21 +5,27 @@ from buton import Buton
 from spanzuratoare import HangmanGame
 from cursor import Cursor
 
+def seteaza_volum_muzica(volum):
+    mixer.music.set_volume(volum)
+
+def seteaza_volum_sfx(volum):
+    sunet_click.set_volume(volum)
+    sunet_pierdut.set_volume(volum)
+    sunet_castigat.set_volume(volum)
+    sunet_click_1.set_volume(volum)
 
 mixer.init()
 # sunet_click.set_volume(0.5)
 
+mixer.music.load("Audio/050612_wild-west-1-36194.mp3")
+mixer.music.play(-1) 
+seteaza_volum_muzica(.5)
+
 sunet_click_1 = pygame.mixer.Sound("Audio/mixkit-handgun-release-1664.wav")
-sunet_click_1.set_volume(.2)
-
 sunet_castigat = pygame.mixer.Sound("Audio/mixkit-handgun-movement-1668.wav")
-sunet_castigat.set_volume(.2)
-
 sunet_pierdut = pygame.mixer.Sound("Audio/gun-shots-from-a-distance-7-96391.mp3")
-sunet_pierdut.set_volume(.2)
-
 sunet_click = pygame.mixer.Sound("Audio/mixkit-handgun-click-1660.mp3")
-sunet_click.set_volume(0.2)
+seteaza_volum_sfx(.2)
 
 pygame.init()
 
@@ -42,8 +48,7 @@ screenUpdate_dificultati = pygame.transform.scale(BG_3, (resolutia_ecranului.cur
 def font(size):
     return pygame.font.Font("interfata/font2.otf", size)
 
-def meniu_dificultate():
-    joc = HangmanGame()
+def meniu_dificultate(joc):
     joc.alege_cuvant_random()
     joc.indiciu()
 
@@ -99,7 +104,7 @@ def meniu_dificultate():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if joaca_inapoi.verificaInput(pozitie_mouse_joca):
                     sunet_click_1.play()
-                    meniu_principal()
+                    meniu_principal(joc)
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if dificultate_GREU.verificaInput(pozitie_mouse_joca):
                     sunet_click.play()
@@ -177,7 +182,6 @@ def main_game_gui(joc):
     ecran.blit(scor_text, (resolutia_ecranului.current_w * .39, resolutia_ecranului.current_h * .14))
     ecran.blit(scor_afisaj, (resolutia_ecranului.current_w * .42, resolutia_ecranului.current_h * .2))
 
-
     scor_maxim_text = font(30).render(f"Scor maxim:", True, "black")
     scor_maxim_afisaj = font(35).render(f"{joc.scor_maxim}", True, "black")
     # scor_maxim_rect = scor_maxim_text.get_rect(center=(resolutia_ecranului.current_w - 300, 200))
@@ -192,7 +196,6 @@ def main_game_gui(joc):
 def joc_principal(joc):
     joc.aCastigat = False
     joc.runda_finalizata = False
-
 
     while True:
         ecran.blit(screenUpdate_joc, (0, 0))
@@ -239,7 +242,7 @@ def joc_principal(joc):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if continua_inapoi.verificaInput(pozitie_mouse_continua):
                     sunet_click_1.play()
-                    meniu_principal()
+                    meniu_principal(joc)
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if continua_indiciu.verificaInput(pozitie_mouse_continua):
                     indiciu(joc)
@@ -304,31 +307,62 @@ def indiciu(joc):
         # cursor.update()
         pygame.display.update()
 
-#def optiuni():
-#    while True:
-#        pozite_mouse_optiuni = pygame.mouse.get_pos()
-#
-#        ecran.blit(screenUpdate, (0, 0))
-#
-#        optiuni_text = font(45).render("indiciu - ", True, "black")
-#        optiuni_rect = optiuni_text.get_rect(center=(960, 300))
-#        ecran.blit(optiuni_text, optiuni_rect)
-#
-#        optiuni_inapoi = Buton(imagine=None, pos=(960, 500), text_input="INAPOI", font=font(86), culoare_baza="black", culoare_activare="white")
-#
-#        optiuni_inapoi.schimbaCuloare(pozite_mouse_optiuni)
-#        optiuni_inapoi.update(ecran)
-#
-#        for event in pygame.event.get():
-#            if event.type == pygame.QUIT:
-#                pygame.quit()
-#                sys.exit()
-#            if event.type == pygame.MOUSEBUTTONDOWN:
-#                if optiuni_inapoi.verificaInput(pozite_mouse_optiuni):
-#                    meniu_principal()
-#        pygame.display.update()
+def optiuni(joc):
+    while True:
+        ecran.blit(screenUpdate_joc, (0, 0))
+        pozite_mouse_optiuni = pygame.mouse.get_pos()
 
-def meniu_principal():
+        semn_2 = pygame.transform.scale (pygame.image.load("interfata/semn_2.png"),(resolutia_ecranului.current_h,resolutia_ecranului.current_h))
+        semn_2_rect = semn_2.get_rect()
+        semn_2_rect.center = (resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .4)
+        ecran.blit(semn_2, semn_2_rect)
+
+        optiuni_muzica = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .24), text_input="MUZICĂ", font=font(65), culoare_baza="black", culoare_activare="white")
+        optiuni_sfx = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .36), text_input="EFECTE SONORE", font=font(65), culoare_baza="black", culoare_activare="white")
+
+        if not joc.muzica:
+            optiuni_muzica = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .24), text_input="MUZICĂ", font=font(65), culoare_baza="red", culoare_activare="white")
+
+        if not joc.sfx:
+            optiuni_sfx = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .36), text_input="EFECTE SONORE", font=font(65), culoare_baza="red", culoare_activare="white")
+
+        optiuni_inapoi = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .47), text_input="ÎNAPOI", font=font(75), culoare_baza="black", culoare_activare="white")
+
+        for button in [optiuni_muzica, optiuni_sfx, optiuni_inapoi]:
+            button.schimbaCuloare(pozite_mouse_optiuni)
+            button.update(ecran)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+               pygame.quit()
+               sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if optiuni_inapoi.verificaInput(pozite_mouse_optiuni):
+                   sunet_click.play()
+                   meniu_principal(joc)
+
+                if optiuni_muzica.verificaInput(pozite_mouse_optiuni):
+                    sunet_click.play()
+                    if joc.muzica:
+                        seteaza_volum_muzica(0)
+                        joc.muzica = False
+                    elif not joc.muzica:
+                        seteaza_volum_muzica(.5)
+                        joc.muzica = True
+
+                if optiuni_sfx.verificaInput(pozite_mouse_optiuni):
+                    sunet_click.play()
+                    if joc.sfx:
+                        seteaza_volum_sfx(0)
+                        joc.sfx = False
+                    elif not joc.sfx:
+                        seteaza_volum_sfx(.5)
+                        joc.sfx = True
+
+        cursor.update()
+        pygame.display.update()
+
+def meniu_principal(joc):
     menu_offset = 0
     moveDown = False
 
@@ -352,14 +386,13 @@ def meniu_principal():
         meniu_rect = meniu_text.get_rect(center=(resolutia_ecranului.current_w * .5, menu_offset + (resolutia_ecranului.current_w * .1)))
 
         buton_start = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .3, resolutia_ecranului.current_h * .6), text_input="START", font=font(100), culoare_baza="black", culoare_activare="white")
-
-        #buton_optiuni = Buton(imagine=None, pos=(960, 650), text_input="INSTRUCTIUNI", font=font(76), culoare_baza="black", culoare_activare="white")
-
         buton_iesire = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .7, resolutia_ecranului.current_h * .6), text_input="IEȘI", font=font(100), culoare_baza="black", culoare_activare="white")
+        
+        buton_optiuni = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .9), text_input="OPTIUNI", font=font(100), culoare_baza="black", culoare_activare="white")
 
         ecran.blit(meniu_text, meniu_rect)
 
-        for button in [buton_start, buton_iesire]:
+        for button in [buton_start, buton_iesire, buton_optiuni]:
             button.schimbaCuloare(pozitie_mouse_meniu)
             button.update(ecran)
 
@@ -370,9 +403,10 @@ def meniu_principal():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if buton_start.verificaInput(pozitie_mouse_meniu):
                     sunet_click.play()
-                    meniu_dificultate()
-                #if buton_optiuni.verificaInput(pozitie_mouse_meniu):
-                #    optiuni()
+                    meniu_dificultate(joc)
+                if buton_optiuni.verificaInput(pozitie_mouse_meniu):
+                   sunet_click.play()
+                   optiuni(joc)
                 if buton_iesire.verificaInput(pozitie_mouse_meniu):
                     sunet_click_1.play()
                     pygame.quit()
@@ -435,7 +469,7 @@ def pierdut(joc):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if pierdut_inapoi.verificaInput(pozitie_mouse):
                     sunet_click_1.play()
-                    meniu_principal()
+                    meniu_principal(joc)
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if pierdut_inainte.verificaInput(pozitie_mouse):
                     sunet_click.play()
@@ -509,7 +543,7 @@ def castigat(joc):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if castigat_inapoi.verificaInput(pozitie_mouse):
                     sunet_click_1.play()
-                    meniu_principal()
+                    meniu_principal(joc)
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if castigat_inainte.verificaInput(pozitie_mouse):
                     sunet_click.play()
@@ -519,5 +553,4 @@ def castigat(joc):
 
         pygame.display.update()
 
-
-meniu_principal()
+meniu_principal(HangmanGame())

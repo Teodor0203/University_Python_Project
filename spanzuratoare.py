@@ -18,6 +18,8 @@ class HangmanGame:
         self.aCastigat = False
         self.rundaFinalizata = False
         self.nivel_Dificultate = 0
+        self.muzica = True
+        self.sfx = True
 
     def reset_game_state(self):
         self.vieti = 6
