@@ -389,10 +389,10 @@ def meniu_principal(joc):
 
         meniu_rect = meniu_text.get_rect(center=(resolutia_ecranului.current_w * .5, menu_offset + (resolutia_ecranului.current_w * .1)))
 
-        buton_start = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .3, resolutia_ecranului.current_h * .6), text_input="START", font=font(100), culoare_baza="black", culoare_activare="white")
-        buton_iesire = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .7, resolutia_ecranului.current_h * .6), text_input="IEȘI", font=font(100), culoare_baza="black", culoare_activare="white")
+        buton_start = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .35), text_input="START", font=font(100), culoare_baza="black", culoare_activare="white")
+        buton_iesire = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .50), text_input="IEȘI", font=font(100), culoare_baza="black", culoare_activare="white")
         
-        buton_optiuni = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .9), text_input="OPTIUNI", font=font(100), culoare_baza="black", culoare_activare="white")
+        buton_optiuni = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .65), text_input="SUNET", font=font(80), culoare_baza="black", culoare_activare="white")
 
         ecran.blit(meniu_text, meniu_rect)
 
