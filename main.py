@@ -34,10 +34,8 @@ pygame.init()
 resolutia_ecranului = pygame.display.Info()
 
 # ecran = pygame.display.set_mode((1700, 1000))
-ecran = pygame.display.set_mode((resolutia_ecranului.current_w, resolutia_ecranului.current_h))
+ecran = pygame.display.set_mode((resolutia_ecranului.current_w - 10, resolutia_ecranului.current_h - 50), pygame.RESIZABLE)
 pygame.display.set_caption("Spanzuratoarea")
-
-
 
 cursor = Cursor(cale_imagine="interfata/cursor.png", ecran=ecran, latime=50, inaltime=50)
 
@@ -49,6 +47,7 @@ screenUpdate_joc = pygame.transform.scale(BG_2, (resolutia_ecranului.current_w, 
 
 BG_3 = pygame.image.load("interfata/fundal_0.png")
 screenUpdate_dificultati = pygame.transform.scale(BG_3, (resolutia_ecranului.current_w, resolutia_ecranului.current_h))
+
 def font(size):
     return pygame.font.Font("interfata/font2.otf", size)
 
@@ -57,33 +56,35 @@ def meniu_dificultate(joc):
     joc.indiciu()
 
     while True:
+        resolutia_ecranului = pygame.display.Info()
 
+        screenUpdate_dificultati = pygame.transform.scale(BG_3, (resolutia_ecranului.current_w, resolutia_ecranului.current_h))
         ecran.blit(screenUpdate_dificultati, (0, 0))
 
-        cautat = pygame.transform.scale(pygame.image.load("interfata/Mircea.png"), (550, 550))
+        cautat = pygame.transform.scale(pygame.image.load("interfata/Mircea.png"), (resolutia_ecranului.current_h *.5, resolutia_ecranului.current_h *.5))
         cautat_rect = cautat.get_rect()
         cautat_rect.center = (resolutia_ecranului.current_w * .13, resolutia_ecranului.current_h * .35)
 
         ecran.blit(cautat, cautat_rect)
         pozitie_mouse_joca = pygame.mouse.get_pos()
 
-        joaca_text_1 = font(32).render("El e Mircea și urmează să fie judecat.", True, "black")
+        joaca_text_1 = font(int(resolutia_ecranului.current_h * .035)).render("El e Mircea și urmează să fie judecat.", True, "black")
         joaca_rect_1 = joaca_text_1.get_rect(center=(resolutia_ecranului.current_w * .63,  (resolutia_ecranului.current_h * .2)))
         
-        joaca_text_2 = font(35).render("Ghicește cuvântul pentru a-l salva.", True, "black")
+        joaca_text_2 = font(int(resolutia_ecranului.current_h * .035)).render("Ghicește cuvântul pentru a-l salva.", True, "black")
         joaca_rect_2 = joaca_text_2.get_rect(center=(resolutia_ecranului.current_w * .63,  (resolutia_ecranului.current_h * .3)))
 
-        joaca_text_indicatii = font(45).render("Primești doar două indicii!", True, "darkred")
+        joaca_text_indicatii = font(int(resolutia_ecranului.current_h * .04)).render("Primești doar două indicii!", True, "darkred")
         joaca_rect_indicatii = joaca_text_indicatii.get_rect(center=(resolutia_ecranului.current_w * .63, (resolutia_ecranului.current_h * .4)))
 
-        joaca_text_dificultate = font(40).render("Alege dificultatea... cu grijă:", True, "black")
+        joaca_text_dificultate = font(int(resolutia_ecranului.current_h * .04)).render("Alege dificultatea... cu grijă:", True, "black")
         joaca_rect_dificultate = joaca_text_dificultate.get_rect(center=(resolutia_ecranului.current_w * .63, (resolutia_ecranului.current_h * .5)))
 
-        dificultate_GREU = Buton(imagine=None, pos=(resolutia_ecranului.current_w * 0.81, resolutia_ecranului.current_h * 0.74), text_input="GREU", font=font(75), culoare_baza="black", culoare_activare=("white"))
+        dificultate_GREU = Buton(imagine=None, pos=(resolutia_ecranului.current_w * 0.81, resolutia_ecranului.current_h * 0.74), text_input="GREU", font=font(int(resolutia_ecranului.current_h * .07)), culoare_baza="black", culoare_activare=("white"))
         dificultate_GREU.schimbaCuloare(pozitie_mouse_joca)
         dificultate_GREU.update(ecran)
 
-        dificultate_USOR = Buton(imagine=None, pos=(resolutia_ecranului.current_w * 0.47, resolutia_ecranului.current_h * 0.74), text_input="UȘOR", font=font(75), culoare_baza="black", culoare_activare=("white"))
+        dificultate_USOR = Buton(imagine=None, pos=(resolutia_ecranului.current_w * 0.47, resolutia_ecranului.current_h * 0.74), text_input="UȘOR", font=font(int(resolutia_ecranului.current_h * .07)), culoare_baza="black", culoare_activare=("white"))
         dificultate_USOR.schimbaCuloare(pozitie_mouse_joca)
         dificultate_USOR.update(ecran)
 
@@ -93,7 +94,7 @@ def meniu_dificultate(joc):
         ecran.blit(joaca_text_dificultate, joaca_rect_dificultate)
 
         # joaca_inainte = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .3, resolutia_ecranului.current_h * .6), text_input="INAINTE", font=font(75), culoare_baza="black", culoare_activare="white")
-        joaca_inapoi = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .63, resolutia_ecranului.current_h * .93), text_input="ÎNAPOI", font=font(60), culoare_baza="black", culoare_activare="white")
+        joaca_inapoi = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .63, resolutia_ecranului.current_h * .93), text_input="ÎNAPOI", font=font(int(resolutia_ecranului.current_h * .06)), culoare_baza="black", culoare_activare="white")
 
         # joaca_inainte.schimbaCuloare(pozitie_mouse_joca)
         # joaca_inainte.update(ecran)
@@ -314,6 +315,9 @@ def indiciu(joc):
 
 def optiuni(joc):
     while True:
+        resolutia_ecranului = pygame.display.Info()
+
+        screenUpdate_joc = pygame.transform.scale(BG_2, (resolutia_ecranului.current_w, resolutia_ecranului.current_h))
         ecran.blit(screenUpdate_joc, (0, 0))
         pozite_mouse_optiuni = pygame.mouse.get_pos()
 
@@ -322,16 +326,16 @@ def optiuni(joc):
         semn_2_rect.center = (resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .4)
         ecran.blit(semn_2, semn_2_rect)
 
-        optiuni_muzica = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .24), text_input="MUZICĂ", font=font(65), culoare_baza="black", culoare_activare="white")
-        optiuni_sfx = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .36), text_input="EFECTE SONORE", font=font(65), culoare_baza="black", culoare_activare="white")
+        optiuni_muzica = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .24), text_input="MUZICĂ", font=font(int(resolutia_ecranului.current_h * .07)), culoare_baza="black", culoare_activare="white")
+        optiuni_sfx = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .36), text_input="EFECTE SONORE", font=font(int(resolutia_ecranului.current_h * .07)), culoare_baza="black", culoare_activare="white")
 
         if not joc.muzica:
-            optiuni_muzica = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .24), text_input="MUZICĂ", font=font(65), culoare_baza="darkred", culoare_activare="white")
+            optiuni_muzica = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .24), text_input="MUZICĂ", font=font(int(resolutia_ecranului.current_h * .07)), culoare_baza="darkred", culoare_activare="white")
 
         if not joc.sfx:
-            optiuni_sfx = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .36), text_input="EFECTE SONORE", font=font(65), culoare_baza="darkred", culoare_activare="white")
+            optiuni_sfx = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .36), text_input="EFECTE SONORE", font=font(int(resolutia_ecranului.current_h * .07)), culoare_baza="darkred", culoare_activare="white")
 
-        optiuni_inapoi = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .47), text_input="ÎNAPOI", font=font(75), culoare_baza="black", culoare_activare="white")
+        optiuni_inapoi = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .47), text_input="ÎNAPOI", font=font(int(resolutia_ecranului.current_h * .07)), culoare_baza="black", culoare_activare="white")
 
         for button in [optiuni_muzica, optiuni_sfx, optiuni_inapoi]:
             button.schimbaCuloare(pozite_mouse_optiuni)
@@ -372,6 +376,9 @@ def meniu_principal(joc):
     moveDown = False
 
     while True:
+        resolutia_ecranului = pygame.display.Info()
+
+        screenUpdate_meniu = pygame.transform.scale(BG, (resolutia_ecranului.current_w, resolutia_ecranului.current_h))
         ecran.blit(screenUpdate_meniu, (0, 0))
 
         if menu_offset > 15:
@@ -385,15 +392,13 @@ def meniu_principal(joc):
             menu_offset += .05
 
         pozitie_mouse_meniu = pygame.mouse.get_pos()
-        meniu_text = font(100).render("SPÂNZURĂTOAREA", True, "black")
-        meniu_rect = meniu_text.get_rect(center=(resolutia_ecranului.current_w * .5, 0 + (resolutia_ecranului.current_w * .1)))
+        meniu_text = font(int(resolutia_ecranului.current_h * .11)).render("SPÂNZURĂTOAREA", True, "black")
+        meniu_rect = meniu_text.get_rect(center=(resolutia_ecranului.current_w * .5, menu_offset + (resolutia_ecranului.current_w * .07)))
 
-        meniu_rect = meniu_text.get_rect(center=(resolutia_ecranului.current_w * .5, menu_offset + (resolutia_ecranului.current_w * .1)))
-
-        buton_start = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .35), text_input="START", font=font(100), culoare_baza="black", culoare_activare="white")
-        buton_iesire = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .50), text_input="IEȘI", font=font(100), culoare_baza="black", culoare_activare="white")
+        buton_start = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .35), text_input="START", font=font(int(resolutia_ecranului.current_h * .1)), culoare_baza="black", culoare_activare="white")
+        buton_iesire = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .50), text_input="IEȘI", font=font(int(resolutia_ecranului.current_h * .1)), culoare_baza="black", culoare_activare="white")
         
-        buton_optiuni = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .65), text_input="SUNET", font=font(80), culoare_baza="black", culoare_activare="white")
+        buton_optiuni = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .65), text_input="SUNET", font=font(int(resolutia_ecranului.current_h * .08)), culoare_baza="black", culoare_activare="white")
 
         ecran.blit(meniu_text, meniu_rect)
 
@@ -422,7 +427,6 @@ def meniu_principal(joc):
 
 #CAND PIERZI/CASTIGI APARE O IMAGINE CU O PANCARDA PE CARE SCRIE "AI PIERDUT/CASTIGAT!" SI BUTON PENTRU A CONITNUA SAU A IESI
 def pierdut(joc):
-
 
     joc.scor = 0
     while True:
