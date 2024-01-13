@@ -393,6 +393,16 @@ def pierdut(joc):
 
         ecran.blit(pancarda_2, rect_pancarda)
 
+        continua_inapoi = Buton(imagine=None,
+                                pos=(resolutia_ecranului.current_w * .12, resolutia_ecranului.current_h * .16),
+                                text_input="MENIU", font=font(50), culoare_baza="black", culoare_activare="white")
+        continua_indiciu = Buton(imagine=None,
+                                 pos=(resolutia_ecranului.current_w * .12, resolutia_ecranului.current_h * .21),
+                                 text_input="?", font=font(55), culoare_baza="black", culoare_activare="white")
+
+        continua_indiciu.update(ecran)
+        continua_inapoi.update(ecran)
+
         joaca_text = font(40).render("Nu l-ai salvat!", True, "black")
         joaca_rect = joaca_text.get_rect()
         joaca_rect.center = (resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .5)
@@ -458,6 +468,12 @@ def castigat(joc):
         #pancarda_2 = pygame.transform.scale(pancarda, (500, 250))
         rect_pancarda = pancarda.get_rect()
         rect_pancarda.center = (resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .5 + 80)
+
+        continua_inapoi = Buton(imagine=None,pos=(resolutia_ecranului.current_w * .12, resolutia_ecranului.current_h * .16),text_input="MENIU", font=font(50), culoare_baza="black", culoare_activare="white")
+        continua_indiciu = Buton(imagine=None,pos=(resolutia_ecranului.current_w * .12, resolutia_ecranului.current_h * .21),text_input="?", font=font(55), culoare_baza="black", culoare_activare="white")
+
+        continua_indiciu.update(ecran)
+        continua_inapoi.update(ecran)
 
         ecran.blit(pancarda, rect_pancarda)
 
