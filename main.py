@@ -246,6 +246,7 @@ def joc_principal(joc):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if continua_inapoi.verificaInput(pozitie_mouse_continua):
                     sunet_click_1.play()
+                    joc.reset_game_state()
                     meniu_principal(joc)
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if continua_indiciu.verificaInput(pozitie_mouse_continua):
