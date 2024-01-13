@@ -150,8 +150,29 @@ def main_game_gui(joc):
             text_litera = font(85).render(joc.linii[litera], True, "black")
             ecran.blit(text_litera,(500 + litera * 100, resolutia_ecranului.current_h - 140))
     
+    semn_1 =pygame.transform.scale (pygame.image.load("interfata/semn_2.png"),(350,350) )
+    semn_1_rect = semn_1.get_rect()
+    semn_1_rect.center = (resolutia_ecranului.current_w * .12, resolutia_ecranului.current_h * .2)
+    
+    semn_2 =pygame.transform.scale (pygame.image.load("interfata/semn_2.png"),(350,350) )
+    semn_2_rect = semn_2.get_rect()
+    semn_2_rect.center = (resolutia_ecranului.current_w * .44, resolutia_ecranului.current_h * .2)
+    
+    semn_3 =pygame.transform.scale (pygame.image.load("interfata/semn_2.png"),(350,350) )
+    semn_3_rect = semn_3.get_rect()
+    semn_3_rect.center = (resolutia_ecranului.current_w * .66, resolutia_ecranului.current_h * .2)
+    
+    semn_4 =pygame.transform.scale (pygame.image.load("interfata/semn_2.png"),(350,350) )
+    semn_4_rect = semn_4.get_rect()
+    semn_4_rect.center = (resolutia_ecranului.current_w * .88, resolutia_ecranului.current_h * .2)
+    
     scor_text = font(35).render(f"Scor: {joc.scor}", True, "black")
     # scor_rect = scor_text.get_rect(center=(resolutia_ecranului.current_w - 300, 100))
+    
+    ecran.blit(semn_1,semn_1_rect)
+    ecran.blit(semn_1,semn_2_rect)
+    ecran.blit(semn_1,semn_3_rect)
+    ecran.blit(semn_1,semn_4_rect)
     ecran.blit(scor_text, (resolutia_ecranului.current_w * .78, 100))
 
     scor_maxim_text = font(35).render(f"Scor maxim: {joc.scor_maxim}", True, "black")
@@ -183,9 +204,11 @@ def joc_principal(joc):
             castigat(joc)
         
         pozitie_mouse_continua = pygame.mouse.get_pos()
-
-        continua_inapoi = Buton(imagine=None, pos=(150, resolutia_ecranului.current_h * .2), text_input="MENIU", font=font(50), culoare_baza="black", culoare_activare="white")
-        continua_indiciu = Buton(imagine=None, pos=(100, 100), text_input="?", font=font(55), culoare_baza="black", culoare_activare="white")
+        
+        main_game_gui(joc)
+        
+        continua_inapoi = Buton(imagine=None, pos=(180, resolutia_ecranului.current_h * .15), text_input="MENIU", font=font(50), culoare_baza="black", culoare_activare="white")
+        continua_indiciu = Buton(imagine=None, pos=(190,resolutia_ecranului.current_h * .2), text_input="?", font=font(55), culoare_baza="black", culoare_activare="white")
     
         continua_indiciu.schimbaCuloare(pozitie_mouse_continua)
         continua_indiciu.update(ecran)
@@ -193,7 +216,7 @@ def joc_principal(joc):
         continua_inapoi.schimbaCuloare(pozitie_mouse_continua)
         continua_inapoi.update(ecran)
 
-        main_game_gui(joc)
+        
         arata_stadile(joc)
         cursor.update()
         pygame.display.flip()   
