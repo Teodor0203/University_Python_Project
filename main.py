@@ -5,12 +5,15 @@ from buton import Buton
 from spanzuratoare import HangmanGame
 from cursor import Cursor
 
+
 mixer.init()
-#sunet_click.load("Audio/birds-19624.mp3")
 # sunet_click.set_volume(0.5)
 
 sunet_click_1 = pygame.mixer.Sound("Audio/mixkit-handgun-release-1664.wav")
 sunet_click_1.set_volume(.2)
+
+sunet_castigat = pygame.mixer.Sound("Audio/mixkit-handgun-movement-1668.wav")
+sunet_castigat.set_volume(.2)
 
 sunet_pierdut = pygame.mixer.Sound("Audio/gun-shots-from-a-distance-7-96391.mp3")
 sunet_pierdut.set_volume(.2)
@@ -45,7 +48,7 @@ def meniu_dificultate():
     joc.indiciu()
 
     while True:
-        
+
         ecran.blit(screenUpdate_dificultati, (0, 0))
 
         cautat = pygame.transform.scale(pygame.image.load("interfata/Mircea.png"), (550, 550))
@@ -67,11 +70,11 @@ def meniu_dificultate():
         joaca_text_dificultate = font(40).render("Alege dificultatea... cu grijă:", True, "black")
         joaca_rect_dificultate = joaca_text_dificultate.get_rect(center=(resolutia_ecranului.current_w * .63, (resolutia_ecranului.current_h * .5)))
 
-        dificultate_GREU = Buton(imagine=None, pos=(resolutia_ecranului.current_w * 0.47, resolutia_ecranului.current_h * 0.74), text_input="GREU", font=font(75), culoare_baza="black", culoare_activare=("white"))
+        dificultate_GREU = Buton(imagine=None, pos=(resolutia_ecranului.current_w * 0.81, resolutia_ecranului.current_h * 0.74), text_input="GREU", font=font(75), culoare_baza="black", culoare_activare=("white"))
         dificultate_GREU.schimbaCuloare(pozitie_mouse_joca)
         dificultate_GREU.update(ecran)
 
-        dificultate_USOR = Buton(imagine=None, pos=(resolutia_ecranului.current_w * 0.81, resolutia_ecranului.current_h * 0.74), text_input="UȘOR", font=font(75), culoare_baza="black", culoare_activare=("white"))
+        dificultate_USOR = Buton(imagine=None, pos=(resolutia_ecranului.current_w * 0.47, resolutia_ecranului.current_h * 0.74), text_input="UȘOR", font=font(75), culoare_baza="black", culoare_activare=("white"))
         dificultate_USOR.schimbaCuloare(pozitie_mouse_joca)
         dificultate_USOR.update(ecran)
 
@@ -147,7 +150,7 @@ def main_game_gui(joc):
         ecran.blit(text_litera,(500, resolutia_ecranului.current_h - 140))
     else:
         for litera in range(len(joc.linii)):
-            text_litera = font(85).render(joc.linii[litera], True, "black")
+            text_litera = font(65).render(joc.linii[litera], True, "black")
             ecran.blit(text_litera,(500 + litera * 100, resolutia_ecranului.current_h - 140))
     
     semn_1 =pygame.transform.scale (pygame.image.load("interfata/semn_2.png"),(350,350) )
@@ -205,6 +208,7 @@ def joc_principal(joc):
             joc.aCastigat = True
             joc.runda_finalizata = True
             ecran.blit(screenUpdate_meniu, (0, 0))
+            sunet_castigat.play()
             castigat(joc)
         
         pozitie_mouse_continua = pygame.mouse.get_pos()
@@ -380,7 +384,7 @@ def meniu_principal():
 #CAND PIERZI/CASTIGI APARE O IMAGINE CU O PANCARDA PE CARE SCRIE "AI PIERDUT/CASTIGAT!" SI BUTON PENTRU A CONITNUA SAU A IESI
 def pierdut(joc):
 
-    while True:        
+    while True:
         ecran.blit(screenUpdate_joc, (0, 0))
         main_game_gui(joc)
         arata_stadile(joc)
