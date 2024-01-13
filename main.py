@@ -153,34 +153,38 @@ def main_game_gui(joc):
     semn_1 =pygame.transform.scale (pygame.image.load("interfata/semn_2.png"),(350,350) )
     semn_1_rect = semn_1.get_rect()
     semn_1_rect.center = (resolutia_ecranului.current_w * .12, resolutia_ecranului.current_h * .2)
-    
-    semn_2 =pygame.transform.scale (pygame.image.load("interfata/semn_2.png"),(350,350) )
-    semn_2_rect = semn_2.get_rect()
+
+    semn_2_rect = semn_1.get_rect()
     semn_2_rect.center = (resolutia_ecranului.current_w * .44, resolutia_ecranului.current_h * .2)
-    
-    semn_3 =pygame.transform.scale (pygame.image.load("interfata/semn_2.png"),(350,350) )
-    semn_3_rect = semn_3.get_rect()
+
+    semn_3_rect = semn_1.get_rect()
     semn_3_rect.center = (resolutia_ecranului.current_w * .66, resolutia_ecranului.current_h * .2)
-    
-    semn_4 =pygame.transform.scale (pygame.image.load("interfata/semn_2.png"),(350,350) )
-    semn_4_rect = semn_4.get_rect()
+
+    semn_4_rect = semn_1.get_rect()
     semn_4_rect.center = (resolutia_ecranului.current_w * .88, resolutia_ecranului.current_h * .2)
     
-    scor_text = font(35).render(f"Scor: {joc.scor}", True, "black")
+    scor_text = font(40).render("Scor:", True, "black")
+    scor_afisaj = font(35).render(f"{joc.scor}", True, "black")
     # scor_rect = scor_text.get_rect(center=(resolutia_ecranului.current_w - 300, 100))
     
     ecran.blit(semn_1,semn_1_rect)
     ecran.blit(semn_1,semn_2_rect)
     ecran.blit(semn_1,semn_3_rect)
     ecran.blit(semn_1,semn_4_rect)
-    ecran.blit(scor_text, (resolutia_ecranului.current_w * .78, 100))
+    ecran.blit(scor_text, (resolutia_ecranului.current_w * .4, resolutia_ecranului.current_h * .14))
+    ecran.blit(scor_afisaj, (resolutia_ecranului.current_w * .43, resolutia_ecranului.current_h * .2))
 
-    scor_maxim_text = font(35).render(f"Scor maxim: {joc.scor_maxim}", True, "black")
+
+    scor_maxim_text = font(30).render(f"Scor maxim:", True, "black")
+    scor_maxim_afisaj = font(35).render(f"{joc.scor_maxim}", True, "black")
     # scor_maxim_rect = scor_maxim_text.get_rect(center=(resolutia_ecranului.current_w - 300, 200))
-    ecran.blit(scor_maxim_text, (resolutia_ecranului.current_w * .66, 200))
+    ecran.blit(scor_maxim_text, (resolutia_ecranului.current_w * .59, resolutia_ecranului.current_h * .14))
+    ecran.blit(scor_maxim_afisaj, (resolutia_ecranului.current_w * .64, resolutia_ecranului.current_h * .2))
 
-    domeniu_text = font(35).render(f"Domeniul: {joc.lista}", True, "black")
-    ecran.blit(domeniu_text, (resolutia_ecranului.current_w * .63, 300))
+    domeniu_text = font(35).render("Domeniul:", True, "black")
+    domeniu_afisaj = font(35).render(f"{joc.lista}", True, "black")
+    ecran.blit(domeniu_text, (resolutia_ecranului.current_w * .82, resolutia_ecranului.current_h * .14))
+    ecran.blit(domeniu_afisaj, (resolutia_ecranului.current_w * .82, resolutia_ecranului.current_h * .2))
     
 def joc_principal(joc):
     joc.aCastigat = False
@@ -207,8 +211,8 @@ def joc_principal(joc):
         
         main_game_gui(joc)
         
-        continua_inapoi = Buton(imagine=None, pos=(180, resolutia_ecranului.current_h * .15), text_input="MENIU", font=font(50), culoare_baza="black", culoare_activare="white")
-        continua_indiciu = Buton(imagine=None, pos=(190,resolutia_ecranului.current_h * .2), text_input="?", font=font(55), culoare_baza="black", culoare_activare="white")
+        continua_inapoi = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .12, resolutia_ecranului.current_h * .16), text_input="MENIU", font=font(50), culoare_baza="black", culoare_activare="white")
+        continua_indiciu = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .12,resolutia_ecranului.current_h * .21), text_input="?", font=font(55), culoare_baza="black", culoare_activare="white")
     
         continua_indiciu.schimbaCuloare(pozitie_mouse_continua)
         continua_indiciu.update(ecran)
