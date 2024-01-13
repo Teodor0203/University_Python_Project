@@ -155,11 +155,11 @@ def arata_stadile(joc):
 
 def main_game_gui(joc):
     if joc.runda_finalizata:
-        text_litera = font(85).render(joc.cuvant, True, "black")
+        text_litera = font(85).render(joc.cuvant, True, "sienna")
         ecran.blit(text_litera,(500, resolutia_ecranului.current_h - 140))
     else:
         for litera in range(len(joc.linii)):
-            text_litera = font(65).render(joc.linii[litera], True, "black")
+            text_litera = font(65).render(joc.linii[litera], True, "sienna")
             ecran.blit(text_litera,(500 + litera * 100, resolutia_ecranului.current_h - 140))
     
     semn_1 =pygame.transform.scale (pygame.image.load("interfata/semn_2.png"),(350,350) )
@@ -325,10 +325,10 @@ def optiuni(joc):
         optiuni_sfx = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .36), text_input="EFECTE SONORE", font=font(65), culoare_baza="black", culoare_activare="white")
 
         if not joc.muzica:
-            optiuni_muzica = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .24), text_input="MUZICĂ", font=font(65), culoare_baza="red", culoare_activare="white")
+            optiuni_muzica = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .24), text_input="MUZICĂ", font=font(65), culoare_baza="darkred", culoare_activare="white")
 
         if not joc.sfx:
-            optiuni_sfx = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .36), text_input="EFECTE SONORE", font=font(65), culoare_baza="red", culoare_activare="white")
+            optiuni_sfx = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .36), text_input="EFECTE SONORE", font=font(65), culoare_baza="darkred", culoare_activare="white")
 
         optiuni_inapoi = Buton(imagine=None, pos=(resolutia_ecranului.current_w * .5, resolutia_ecranului.current_h * .47), text_input="ÎNAPOI", font=font(75), culoare_baza="black", culoare_activare="white")
 
@@ -422,6 +422,8 @@ def meniu_principal(joc):
 #CAND PIERZI/CASTIGI APARE O IMAGINE CU O PANCARDA PE CARE SCRIE "AI PIERDUT/CASTIGAT!" SI BUTON PENTRU A CONITNUA SAU A IESI
 def pierdut(joc):
 
+
+    joc.scor = 0
     while True:
         ecran.blit(screenUpdate_joc, (0, 0))
         main_game_gui(joc)
