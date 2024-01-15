@@ -34,7 +34,7 @@ pygame.init()
 resolutia_ecranului = pygame.display.Info()
 
 # ecran = pygame.display.set_mode((1700, 1000))
-ecran = pygame.display.set_mode((resolutia_ecranului.current_w - 10, resolutia_ecranului.current_h - 50), pygame.RESIZABLE)
+ecran = pygame.display.set_mode((resolutia_ecranului.current_w, resolutia_ecranului.current_h))
 pygame.display.set_caption("Spanzuratoarea")
 
 cursor = Cursor(cale_imagine="interfata/cursor.png", ecran=ecran, latime=50, inaltime=50)
