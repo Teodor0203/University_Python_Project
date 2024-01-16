@@ -52,8 +52,6 @@ def font(size):
     return pygame.font.Font("interfata/font2.otf", size)
 
 def meniu_dificultate(joc):
-    joc.alege_cuvant_random()
-    joc.indiciu()
 
     while True:
         resolutia_ecranului = pygame.display.Info()
@@ -429,6 +427,7 @@ def meniu_principal(joc):
 def pierdut(joc):
 
     joc.scor = 0
+    
     while True:
         ecran.blit(screenUpdate_joc, (0, 0))
         main_game_gui(joc)

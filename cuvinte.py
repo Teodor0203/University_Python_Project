@@ -10,8 +10,8 @@ cuvinte_usoare = {
 
 cuvinte_grele = { 
 
-'biologie' :['sternocleidomastoidian', 'mitocondrie', 'cloroplast', 'cromozom', 'hemoglobina', 'carboxihemoglobina', 'trombocit', 'stomata', 'falange', 'metacarpiene' , 'cubitus', 'humerus', 'clavicula', 'stern', 'femur', 'nicovala', 'laringe', 'bronhiola', 'alveola', 'clorofila', 'verterbra', 'epiderm', 'pleura', 'meninge', 'cefalorahidian', 'brahioradial', 'gastrocnemian', 'solear', 'leucocit'],
-'fizică' : ['entropie', 'ampermetru', 'volmetru', 'coulomb', 'fisiune', 'hertz', 'radioactivitate', 'refractie', 'tranzistor', 'kirchhoff', 'fahrenheit', 'relativitate', 'cuantic', 'proton', 'electron', 'watt', 'viscozitate', 'rugozitate', 'energie', 'electricitate', 'frecventa', 'interfranja', 'interferenta', 'fuziune', 'schrodinger', 'qubit', 'newton', 'presiune', 'termodinamica'],
+'biologie' :['mitocondrie', 'cloroplast', 'cromozom', 'hemoglobina', 'trombocit', 'stomata', 'falange', 'metacarpiene' , 'cubitus', 'humerus', 'clavicula', 'stern', 'femur', 'nicovala', 'laringe', 'bronhiola', 'alveola', 'clorofila', 'verterbra', 'epiderm', 'pleura', 'meninge', 'cefalorahidian', 'brahioradial', 'gastrocnemian', 'solear', 'leucocit'],
+'fizică' : ['entropie', 'ampermetru', 'volmetru', 'coulomb', 'fisiune', 'hertz', 'refractie', 'tranzistor', 'kirchhoff', 'fahrenheit', 'relativitate', 'cuantic', 'proton', 'electron', 'watt', 'viscozitate', 'rugozitate', 'energie', 'electricitate', 'frecventa', 'interfranja', 'interferenta', 'fuziune', 'schrodinger', 'qubit', 'newton', 'presiune', 'termodinamica'],
 
 'capitale' : ['sarajevo', 'reykjavik', 'jakarta', 'ottawa', 'canberra', 'tashkent', 'riyadh', 'bangkok', 'islamabad', '']
              

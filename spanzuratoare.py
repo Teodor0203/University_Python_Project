@@ -100,7 +100,6 @@ class HangmanGame:
             if litera_introdusa == "indiciu" and self.numar_indicii > 0:
                 self.pune_desenul()
                 winsound.PlaySound('Audio/Game Hint Sound.wav', 1)
-                self.numar_indicii -= 1
                 self.indiciu()
                 print(f"Mai ai {self.numar_indicii} indiciu ramas! \n")
                 print(f"{''.join(self.linii)} \n")
