@@ -154,11 +154,11 @@ def arata_stadile(joc):
 
 def main_game_gui(joc):
     if joc.runda_finalizata:
-        text_litera = font(85).render(joc.cuvant, True, "sienna")
+        text_litera = font(85).render(joc.cuvant, True, "darkslategray")
         ecran.blit(text_litera,(500, resolutia_ecranului.current_h - 140))
     else:
         for litera in range(len(joc.linii)):
-            text_litera = font(65).render(joc.linii[litera], True, "sienna")
+            text_litera = font(65).render(joc.linii[litera], True, "darkslategray")
             ecran.blit(text_litera,(500 + litera * 100, resolutia_ecranului.current_h - 140))
     
     semn_1 =pygame.transform.scale (pygame.image.load("interfata/semn_2.png"),(350,350) )
@@ -291,11 +291,11 @@ def indiciu(joc):
             indiciu_0_rect = indiciu_0.get_rect(center=(300, 300))
             ecran.blit(indiciu_0, indiciu_0_rect)
         
-        # indiciu_inapoi = Buton(imagine=None, pos=(30, 300), text_input="x", font=font(35), culoare_baza="black",
-        #                         culoare_activare="white")
+        indiciu_inapoi = Buton(imagine=None, pos=(30, 300), text_input="x", font=font(35), culoare_baza="black",
+                                 culoare_activare="white")
 
-        # indiciu_inapoi.schimbaCuloare(pozite_mouse_indiciu)
-        # indiciu_inapoi.update(ecran)
+        indiciu_inapoi.schimbaCuloare(pozite_mouse_indiciu)
+        indiciu_inapoi.update(ecran)
 
         cursor.update()
         pygame.display.flip()  
@@ -306,6 +306,9 @@ def indiciu(joc):
                 sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
+                    joc_principal(joc)
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if indiciu_inapoi.verificaInput(pozite_mouse_indiciu):
                     joc_principal(joc)
 
         # cursor.update()
@@ -470,7 +473,7 @@ def pierdut(joc):
         pierdut_inainte.update(ecran)
         
         cursor.update()
-        pygame.display.flip()  
+        pygame.display.flip()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
