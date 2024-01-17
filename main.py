@@ -282,6 +282,11 @@ def indiciu(joc):
         main_game_gui(joc)
         pozite_mouse_indiciu = pygame.mouse.get_pos()
 
+        continua_inapoi = Buton(imagine=None,
+                                pos=(resolutia_ecranului.current_w * .12, resolutia_ecranului.current_h * .16),
+                                text_input="MENIU", font=font(50), culoare_baza="black", culoare_activare="white")
+        continua_inapoi.update(ecran)
+
         if joc.numar_indicii > 0:
             indiciu_text = font(35).render(f"Indiciul este: {joc.cuvant[joc.indexul_unei_litere]}", True, "black")
             indiciu_rect = indiciu_text.get_rect(center=(300, 300))
